@@ -1,0 +1,4 @@
+name, Sun, Mon, Tues, Wed, Thurs, Fri, Sat
+Dawit, all, none, all, none, none, none, all
+test1, 15-close, open-16, all, all, all, all, none
+test2, open-15, 17-close, open-14, none,all,none, all
