@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <form action="/add" method="get">
+        <div class="item"><button type='submit'>Add Employees</button></div>
+    </form>
+    <form action="/generate" method="post">
+        <div class="item"><button type='submit'>Make schedule</button></div>
+    </form>
+{% endblock %}

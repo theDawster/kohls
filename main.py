@@ -7,24 +7,19 @@ days = []
 OPEN = 9
 CLOSE = 20
 
-def main():
+def main(numWorkers, maxHrs):
     employees = load_employees()
     week = defaultdict(dict)
-    numWorkers = int(input('number of workers:'))
     workingHrs = CLOSE - OPEN
     blocks = round(workingHrs / numWorkers, 1)
-
-    maxHrs = float(input('maximum hours per employee (hrs): '))
 
     for day in days:
         generate_combos.create_day(week[day],day, employees, maxHrs, blocks, numWorkers)
 
-    print_week(week)
-
-    return
+    return week
 
 
-def load_employees():
+def load_employees(): #update to use sql
     with open('employees.txt') as f:
         emp_pref = {}
         first = True
@@ -53,29 +48,3 @@ def load_employees():
 
 
     return employees
-
-
-def print_week(week):
-    with open('schedule.txt', 'w') as f:
-        '''print headers'''
-        x=''
-        print(f"{x:^10}", end='', file=f)
-        for day in days:
-            print(f'{day:^10}', end='', file=f)
-        print(file=f)
-
-        '''print schedule'''
-        blocks = list(week['Sun'].keys())
-
-        for shift in blocks:
-            print(f"{shift:^10}", end='', file=f)
-            for day in week:
-                try:
-                    print(f'{week[day][shift].name:^10}', end='', file=f)
-                except Exception:
-                    print(f'{'None':^10}', end='', file=f)
-            print(file=f)
-        return
-
-
-main()

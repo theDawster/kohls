@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    {% if ready %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    {% for day in days %}
+                        <th>{{ day }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for shift in week["Sun"] %}
+                    <tr>
+                        <td>{{ shift }}</td>
+                        {% for day in days %}
+                            <td>{{ week.day.shift }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+    <form action="/generate" method="post">
+        <input autocomplete="off" required placeholder="Number of Workers" name="workers" type="number">
+        <input autocomplete="off" required placeholder="Maximum Hours Per worker" name="hours" type="number">
+        <button type="submit">Submit</button>
+    </form>
+    {% endif %}
+{% endblock %}
