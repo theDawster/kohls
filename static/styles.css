@@ -4,12 +4,28 @@
     align-items: center;
 }
 
+body {
+    margin: none;
+}
+
 .header {
     text-align: start;
     background-color: aqua;
     color: white;
     padding: auto;
     margin: 0px;
+}
+
+.head {
+    background-color: aqua;
+    color: white;
+    border: none;
+    padding: 4px;
+    font-size: 1rem;
+}
+.head:hover {
+    background-color: cyan;
+    border: 2px outset cyan;
 }
 
 .logo {

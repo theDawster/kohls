@@ -16,9 +16,9 @@ def add():
 @app.route('/generate', methods=['GET', 'POST'])
 def generate():
     if request.method == "GET":
-        render_template('generate.html', ready=False)
+        return render_template('generate.html', ready=None)
     else:
-        numWorkers, MaxHrs = request.form.get('workers'),request.form.get('hours')
+        numWorkers, MaxHrs = int(request.form.get('workers')),int(request.form.get('hours'))
         week = main.main(numWorkers, MaxHrs)
         days = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat']
-        render_template('generate.html', week=week, days=days)
+        return render_template('generate.html', week=week, days=days, ready=1)
