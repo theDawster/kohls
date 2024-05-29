@@ -7,7 +7,7 @@ days = []
 OPEN = 9
 CLOSE = 20
 
-def main(numWorkers, maxHrs):
+def make_schedule(numWorkers, maxHrs):
     employees = load_employees()
     week = defaultdict(dict)
     workingHrs = CLOSE - OPEN

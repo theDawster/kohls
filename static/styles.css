@@ -50,3 +50,26 @@ button {
 button:hover {
     border: 2px solid black;
 }
+
+table {
+    border: 1px solid #d3d3d3;
+    background-color: white;
+}
+
+table tr {
+    background-color: #d3d3d3;
+}
+
+table tr:hover {
+    background-color: #949494;
+}
+
+table td,
+table th {
+    padding: 4px;
+}
+
+table td:hover,
+table th:hover {
+    border: 1px solid black;
+}

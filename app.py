@@ -19,6 +19,6 @@ def generate():
         return render_template('generate.html', ready=None)
     else:
         numWorkers, MaxHrs = int(request.form.get('workers')),int(request.form.get('hours'))
-        week = main.main(numWorkers, MaxHrs)
+        week = main.make_schedule(numWorkers, MaxHrs)
         days = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat']
         return render_template('generate.html', week=week, days=days, ready=1)
