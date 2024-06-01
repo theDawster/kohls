@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <form action="/availiability" method="post">
+        <h2>Availiabilities</h2>
+        <p>if availiable for the entire day leave blank
+        and if not availiable at all enter none</p>
+        <p>format: XX:XX-XX:XX</p>
+        <p> if availiable at opening, put open-{time}</p>
+        <p>if availiable until closing, put {time}-close</p>
+        <p>please use whole number times (if 8:15 round to 8 or 9 o'clock</p>
+        <p>please use military time (ex. 2pm = 14 o'clock)</p>
+        
+        <label>Enter Employee Id</label>
+        <input type="number" name="id" autocomplete="off" value="{{ employee }}">
+
+        {% for day in days %}
+            <div>
+                <label>Enter {{ day }}.</label>
+                <input autocomplete="off" autofocus name="{{ day }}">
+            </div>
+        {% endfor %}
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}
