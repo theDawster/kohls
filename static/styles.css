@@ -52,8 +52,9 @@ button:hover {
 }
 
 table {
-    border: 1px solid #d3d3d3;
-    background-color: white;
+    background-color: transparent;
+    padding: 1rem 3rem;
+    width: 100%;
 }
 
 table tr {

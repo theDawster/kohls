@@ -15,16 +15,6 @@
             <label>Enter Last Name</label>
             <input autocomplete="off" autofocus required name="last">
         </div>
-        <h2>Availiabilities</h2>
-        <p>if availiable for the entire day leave blank
-             and if not availiable at all enter none</p>
-             <p>format: XX:XX-XX:XX</p>
-        {% for day in days %}
-            <div>
-                <label>Enter {{ day }}day</label>
-                <input autocomplete="off" autofocus name="{{ day }}">
-            </div>
-        {% endfor %}
         <button type="submit">Submit</button>
     </form>
 {% endblock %}

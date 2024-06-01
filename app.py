@@ -12,30 +12,55 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/employees')
+def employees():
+    with sqlite3.connect('employees.db') as database:
+        db = database.cursor()
+        employees = list(db.execute("SELECT * FROM employees"))
+        print(employees)
+    return render_template('employees.html', employees=employees)
+
+
 @app.route('/add', methods=['GET', 'POST'])
 def add():
     if request.method == 'GET':
-        return render_template('add.html', days=DAYS)
+        return render_template('add.html')
     else:
         with sqlite3.connect('employees.db') as database:
             db = database.cursor()
 
             ID = int(request.form.get("id"))
-            first = request.form.get("first")
-            last = request.form.get("last")
+            first = request.form.get("first").strip()
+            last = request.form.get("last").strip()
 
             db.execute('INSERT INTO employees (id, first, last) VALUES (?, ?, ?)', (ID, first, last))
             db.execute('INSERT INTO availiability (employee_id) VALUES (?)', (ID,))
+            database.commit()
+            
+            return availiability(ID)
+
+
+@app.route('/availiability', methods=['GET', 'POST'])
+def availiability(employee=None):
+    if request.method == "POST":
+        with sqlite3.connect("employees.db") as database:
+            db = database.cursor()
+            
             for day in DAYS:
-                avail_change = request.form.get(day)
+                avail_change = request.form.get(day, None)
+                ID = employee if employee else int(request.form.get("id"))
                 if avail_change:
-                    db.execute('UPDATE availiability SET ? = ? WHERE employee_id = ?',
-                                (day, avail_change, ID))
+                    try:
+                        db.execute('UPDATE availiability SET :day = \':change\' WHERE employee_id = :id',
+                                    {"day":day, "change":avail_change, "id":ID})
+                    except Exception:
+                        print(day)
                     
             database.commit()
             print("SUCCESS!")
-            
             return redirect("/")
+    else:
+        return render_template('availiability.html', employee=employee,  days=DAYS)
 
 
 @app.route('/generate', methods=['GET', 'POST'])
