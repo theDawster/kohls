@@ -61,7 +61,8 @@ table tr {
     background-color: #d3d3d3;
 }
 
-table tr:hover {
+table tr:hover,
+table th {
     background-color: #949494;
 }
 
@@ -70,7 +71,6 @@ table th {
     padding: 4px;
 }
 
-table td:hover,
-table th:hover {
+table td:hover {
     border: 1px solid black;
 }

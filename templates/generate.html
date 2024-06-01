@@ -16,7 +16,7 @@
                     <tr>
                         <td>{{ shift }}</td>
                         {% for day in days %}
-                            <td>{{ week.day.shift }}</td>
+                            <td>{{ week[day][shift].name }}</td>
                         {% endfor %}
                     </tr>
                 {% endfor %}

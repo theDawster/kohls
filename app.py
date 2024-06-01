@@ -37,12 +37,12 @@ def add():
             db.execute('INSERT INTO availiability (employee_id) VALUES (?)', (ID,))
             database.commit()
             
-            return availiability(ID)
+        return availiability(ID, True)
 
 
 @app.route('/availiability', methods=['GET', 'POST'])
-def availiability(employee=None):
-    if request.method == "POST":
+def availiability(employee=None, new=False):
+    if request.method == "POST" and not new:
         with sqlite3.connect("employees.db") as database:
             db = database.cursor()
             

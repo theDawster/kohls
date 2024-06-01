@@ -1,8 +1,9 @@
 from collections import defaultdict
 import employee # type: ignore
 import generate_combos  # type: ignore
+import sqlite3
 
-days = []
+days = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat']
 
 OPEN = 9
 CLOSE = 20
@@ -19,32 +20,20 @@ def make_schedule(numWorkers, maxHrs):
     return week
 
 
-def load_employees(): #update to use sql
-    with open('employees.txt') as f:
-        emp_pref = {}
-        first = True
-        for line in f:
-            line = line.strip()
-            parts = line.split(',')
-            if first:
-                first = False
-                i = 1
-                while i < len(parts):
-                    days.append(parts[i].strip())
-                    i+=1
-            else:
-                name = parts[0].strip()
-                emp_pref[name] = {}
-                avail = parts[1:]
-                i = 0
-                for day in days:
-                    emp_pref[name][day] = avail[i].strip()
-                    i+=1
+def load_employees() -> list[employee.Employee]: #update to use sql
+    with sqlite3.connect('employees.db') as database:
+        db = database.cursor()
 
-    employees = []
-    for name in emp_pref:
-        employees.append(employee.Employee(name))
-        employees[-1].availiability = emp_pref[name]
+        e = list(db.execute('SELECT first, id FROM employees'))
+        
+        employees = []
 
+        for name, ID in e:
+            employees.append(employee.Employee(name))
+            avail = list(db.execute('SELECT * FROM availiability WHERE employee_id = ?', (ID,)))[0]
+            for i, day in enumerate(days):
+                employees[-1].availiability[day] = avail[i]
 
     return employees
+
+make_schedule(2, 25)
